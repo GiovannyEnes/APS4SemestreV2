@@ -1,8 +1,12 @@
 package com.giovannyenes.estruturadados.model;
 
-import jakarta.persistence.*;
-
 import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 @Entity
@@ -10,7 +14,7 @@ import java.time.LocalDate;
 public class DadosDesmatamento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String idBdq;    // ID_BDQ
@@ -21,8 +25,6 @@ public class DadosDesmatamento {
     private String estado;
     private String municipio;
     private String bioma;
-
-    @Column(nullable = false)
     private LocalDate data; // agora guardamos a data completa
 
     public DadosDesmatamento() {}
