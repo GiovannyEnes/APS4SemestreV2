@@ -19,12 +19,13 @@ public class PredictionService {
     }
 
     /**
-     * Retorna um mapa com o total de focos por ano.
+     * Retorna um mapa com o total de focos por ano (extraindo o ano da data).
      */
     private Map<Integer, Long> totalFocosPorAno() {
         return repository.findAll().stream()
+                .filter(d -> d.getData() != null)
                 .collect(Collectors.groupingBy(
-                        DadosDesmatamento::getAno,
+                        d -> d.getData().getYear(),
                         Collectors.counting()
                 ));
     }
@@ -42,7 +43,7 @@ public class PredictionService {
             throw new IllegalStateException("É necessário pelo menos 2 anos de dados para realizar a projeção.");
         }
 
-        // cálculo da regressão linear
+        // cálculo da regressão linear (método dos mínimos quadrados)
         double n = anos.size();
         double somaX = anos.stream().mapToDouble(a -> a).sum();
         double somaY = focos.stream().mapToDouble(f -> f).sum();
@@ -63,22 +64,25 @@ public class PredictionService {
         for (int i = 1; i <= anosFuturos; i++) {
             int anoFuturo = ultimoAno + i;
             double previsao = a * anoFuturo + b;
-            projecoes.put(anoFuturo, previsao);
+            projecoes.put(anoFuturo, Math.max(previsao, 0)); // evita previsões negativas
         }
 
         return projecoes;
     }
 
     /**
-     * Calcula também uma tendência geral (subida ou queda média percentual).
+     * Calcula a tendência geral (percentual de aumento ou queda).
      */
     public double tendenciaGeral() {
         Map<Integer, Long> totalPorAno = totalFocosPorAno();
         List<Integer> anos = totalPorAno.keySet().stream().sorted().toList();
+
         if (anos.size() < 2) return 0;
 
         long primeiro = totalPorAno.get(anos.get(0));
         long ultimo = totalPorAno.get(anos.get(anos.size() - 1));
+
+        if (primeiro == 0) return 0;
 
         return ((double) (ultimo - primeiro) / primeiro) * 100.0;
     }

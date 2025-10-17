@@ -21,29 +21,31 @@ public class AnaliseService {
     }
 
     /**
-     * Lista todos os anos distintos, em ordem crescente
+     * Lista todos os anos distintos, em ordem crescente.
      */
     public List<Integer> listarAnosOrdenados() {
         return repository.findAll().stream()
-                .map(DadosDesmatamento::getAno)
+                .map(d -> d.getData() != null ? d.getData().getYear() : null)
+                .filter(Objects::nonNull)
                 .distinct()
                 .sorted()
                 .toList();
     }
 
     /**
-     * Total de focos por ano
+     * Total de focos por ano.
      */
     public Map<Integer, Long> totalFocosPorAno() {
         return repository.findAll().stream()
+                .filter(d -> d.getData() != null)
                 .collect(Collectors.groupingBy(
-                        DadosDesmatamento::getAno,
+                        d -> d.getData().getYear(),
                         Collectors.counting()
                 ));
     }
 
     /**
-     * Lista de biomas em ordem alfabética
+     * Lista de biomas em ordem alfabética.
      */
     public List<String> listarBiomasOrdenados() {
         return repository.findAll().stream()
@@ -55,10 +57,11 @@ public class AnaliseService {
     }
 
     /**
-     * Total de focos por bioma
+     * Total de focos por bioma.
      */
     public Map<String, Long> totalFocosPorBioma() {
         return repository.findAll().stream()
+                .filter(d -> d.getBioma() != null)
                 .collect(Collectors.groupingBy(
                         DadosDesmatamento::getBioma,
                         Collectors.counting()
@@ -66,7 +69,7 @@ public class AnaliseService {
     }
 
     /**
-     * Crescimento percentual entre anos consecutivos
+     * Crescimento percentual entre anos consecutivos.
      */
     public Map<Integer, Double> crescimentoPercentualPorAno() {
         Map<Integer, Long> totalPorAno = totalFocosPorAno();
@@ -81,7 +84,10 @@ public class AnaliseService {
             long anterior = totalPorAno.get(anoAnterior);
             long atual = totalPorAno.get(anoAtual);
 
-            double percentual = anterior > 0 ? ((double)(atual - anterior) / anterior) * 100 : 0;
+            double percentual = anterior > 0
+                    ? ((double) (atual - anterior) / anterior) * 100
+                    : 0;
+
             crescimento.put(anoAtual, percentual);
         }
 

@@ -2,6 +2,8 @@ package com.giovannyenes.estruturadados.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "area_desmatada")
@@ -20,14 +22,13 @@ public class DadosDesmatamento {
     private String municipio;
     private String bioma;
 
-    // Agora guardamos apenas o ano como inteiro
     @Column(nullable = false)
-    private Integer ano;
+    private LocalDate data; // agora guardamos a data completa
 
     public DadosDesmatamento() {}
 
     public DadosDesmatamento(String idBdq, String focoId, double latitude, double longitude,
-                             String pais, String estado, String municipio, String bioma, Integer ano) {
+                             String pais, String estado, String municipio, String bioma, LocalDate data) {
         this.idBdq = idBdq;
         this.focoId = focoId;
         this.latitude = latitude;
@@ -36,86 +37,48 @@ public class DadosDesmatamento {
         this.estado = estado;
         this.municipio = municipio;
         this.bioma = bioma;
-        this.ano = ano;
+        this.data = data;
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters e Setters
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
 
-    public String getIdBdq() {
-        return idBdq;
-    }
+    public void setId(Long id) { this.id = id; }
 
-    public void setIdBdq(String idBdq) {
-        this.idBdq = idBdq;
-    }
+    public String getIdBdq() { return idBdq; }
 
-    public String getFocoId() {
-        return focoId;
-    }
+    public void setIdBdq(String idBdq) { this.idBdq = idBdq; }
 
-    public void setFocoId(String focoId) {
-        this.focoId = focoId;
-    }
+    public String getFocoId() { return focoId; }
 
-    public double getLatitude() {
-        return latitude;
-    }
+    public void setFocoId(String focoId) { this.focoId = focoId; }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+    public double getLatitude() { return latitude; }
 
-    public double getLongitude() {
-        return longitude;
-    }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+    public double getLongitude() { return longitude; }
 
-    public String getPais() {
-        return pais;
-    }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
+    public String getPais() { return pais; }
 
-    public String getEstado() {
-        return estado;
-    }
+    public void setPais(String pais) { this.pais = pais; }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+    public String getEstado() { return estado; }
 
-    public String getMunicipio() {
-        return municipio;
-    }
+    public void setEstado(String estado) { this.estado = estado; }
 
-    public void setMunicipio(String municipio) {
-        this.municipio = municipio;
-    }
+    public String getMunicipio() { return municipio; }
 
-    public Integer getAno() {
-        return ano;
-    }
+    public void setMunicipio(String municipio) { this.municipio = municipio; }
 
-    public void setAno(Integer ano) {
-        this.ano = ano;
-    }
+    public String getBioma() { return bioma; }
 
-    public String getBioma() {
-        return bioma;
-    }
+    public void setBioma(String bioma) { this.bioma = bioma; }
 
-    public void setBioma(String bioma) {
-        this.bioma = bioma;
-    }
+    public LocalDate getData() { return data; }
+
+    public void setData(LocalDate data) { this.data = data; }
 }

@@ -32,68 +32,54 @@ public class CsvLoaderService {
             return;
         }
 
-        // formatos comuns que o CSV pode trazer
-        DateTimeFormatter fmtFull = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        DateTimeFormatter fmtDate1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter fmtDate2 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter fmtDate3 = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        // possíveis formatos de data
+        DateTimeFormatter[] formatos = new DateTimeFormatter[]{
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"),
+                DateTimeFormatter.ofPattern("yyyy/MM/dd")
+        };
 
         for (File arquivo : arquivos) {
             try (CSVReader reader = new CSVReader(new FileReader(arquivo))) {
                 List<String[]> linhas = reader.readAll();
                 List<DadosDesmatamento> lista = new ArrayList<>();
 
-                // se tiver só cabeçalho ou estiver vazio, pula
                 if (linhas.size() <= 1) {
                     System.out.println("⚠️ Arquivo vazio ou sem dados: " + arquivo.getName());
                     continue;
                 }
 
-                // pula o cabeçalho (assumindo primeira linha cabeçalho)
                 for (String[] l : linhas.subList(1, linhas.size())) {
                     try {
                         if (l == null || l.length < 9) continue;
-
-                        // trim em todas as colunas
                         for (int i = 0; i < l.length; i++) {
                             if (l[i] != null) l[i] = l[i].trim();
                         }
 
-                        // Colunas esperadas:
-                        // 0 = ID_BDQ, 1 = FOCO_ID, 2 = LATITUDE, 3 = LONGITUDE, 4 = DATA, 5 = PAIS, 6 = ESTADO, 7 = MUNICIPIO, 8 = BIOMA
                         String idBdq = l[0];
                         String focoId = l[1];
                         double latitude = Double.parseDouble(l[2].replace(",", "."));
                         double longitude = Double.parseDouble(l[3].replace(",", "."));
-                        String dataStr = l[4] != null ? l[4].trim() : "";
+                        String dataStr = l[4];
                         String pais = l[5];
                         String estado = l[6];
                         String municipio = l[7];
                         String bioma = l[8];
 
-                        Integer ano = parseYear(dataStr, fmtFull, fmtDate1, fmtDate2, fmtDate3);
-                        if (ano == null) {
-                            // se não conseguir extrair, ignora esta linha (ou definir fallback)
-                            System.err.println("⚠️ Não foi possível extrair ano da data: '" + dataStr + "' (linha ignorada)");
+                        LocalDate data = parseData(dataStr, formatos);
+                        if (data == null) {
+                            System.err.println("⚠️ Não foi possível converter a data: " + dataStr);
                             continue;
                         }
 
                         DadosDesmatamento area = new DadosDesmatamento(
-                                idBdq,
-                                focoId,
-                                latitude,
-                                longitude,
-                                pais,
-                                estado,
-                                municipio,
-                                bioma,
-                                ano
+                                idBdq, focoId, latitude, longitude,
+                                pais, estado, municipio, bioma, data
                         );
 
                         lista.add(area);
 
-                    } catch (NumberFormatException nf) {
-                        System.err.println("⚠️ Formato numérico inválido na linha: " + String.join(",", l));
                     } catch (Exception ex) {
                         System.err.println("⚠️ Erro ao processar linha: " + String.join(",", l) + " -> " + ex.getMessage());
                     }
@@ -114,41 +100,22 @@ public class CsvLoaderService {
         System.out.println("🎉 Todos os arquivos foram processados!");
     }
 
-    /**
-     * Tenta extrair o ano a partir de diferentes formatos de data.
-     * Retorna null se não for possível extrair.
-     */
-    private Integer parseYear(String dataStr, DateTimeFormatter... formatters) {
+    private LocalDate parseData(String dataStr, DateTimeFormatter... formatters) {
         if (dataStr == null || dataStr.isBlank()) return null;
 
         dataStr = dataStr.trim();
 
-        // se for apenas ano (ex: "2003")
-        if (dataStr.matches("^\\d{4}$")) {
-            return Integer.parseInt(dataStr);
-        }
-
-        // tenta com os formatters passados
         for (DateTimeFormatter f : formatters) {
             try {
-                LocalDate d = LocalDate.parse(dataStr, f);
-                return d.getYear();
+                return LocalDate.parse(dataStr, f);
             } catch (DateTimeParseException ignored) {}
         }
 
-        // alguns CSVs têm "2003-05-15 00:00:00" — DateTimeFormatter usado pode não aceitar hora; vamos tentar cortar
+        // fallback para casos tipo "2003-05-15 00:00:00"
         String possibleDateOnly = dataStr.split(" ")[0];
-        if (possibleDateOnly.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            try {
-                LocalDate d = LocalDate.parse(possibleDateOnly, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                return d.getYear();
-            } catch (DateTimeParseException ignored) {}
-        }
-
-        // fallback: tenta extrair os quatro primeiros dígitos se parecem ano
-        if (dataStr.length() >= 4 && dataStr.substring(0,4).matches("\\d{4}")) {
-            return Integer.parseInt(dataStr.substring(0,4));
-        }
+        try {
+            return LocalDate.parse(possibleDateOnly, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        } catch (DateTimeParseException ignored) {}
 
         return null;
     }
