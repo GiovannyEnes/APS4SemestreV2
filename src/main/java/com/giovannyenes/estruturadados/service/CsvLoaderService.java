@@ -1,10 +1,5 @@
 package com.giovannyenes.estruturadados.service;
 
-import com.giovannyenes.estruturadados.model.DadosDesmatamento;
-import com.giovannyenes.estruturadados.repository.DadosDesmatamentoRepository;
-import com.opencsv.CSVReader;
-import org.springframework.stereotype.Service;
-
 import java.io.File;
 import java.io.FileReader;
 import java.time.LocalDate;
@@ -12,6 +7,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.giovannyenes.estruturadados.model.DadosDesmatamento;
+import com.giovannyenes.estruturadados.repository.DadosDesmatamentoRepository;
+import com.opencsv.CSVReader;
 
 
 
@@ -25,8 +26,27 @@ public class CsvLoaderService {
     }
 
     public void carregarCSV(String pasta) {
+        // LIMPAR O BANCO ANTES DE CARREGAR
+        long countAntes = repository.count();
+        if (countAntes > 0) {
+            System.out.println("⚠️ Banco já contém " + countAntes + " registros. Limpando...");
+            repository.deleteAll();
+            System.out.println("✅ Banco limpo!");
+        }
+        
         File dir = new File(pasta);
-        File[] arquivos = dir.listFiles((d, name) -> name.toLowerCase().endsWith(".csv"));
+        // CARREGAR APENAS O merged_data.csv para evitar duplicação
+        File[] arquivos = dir.listFiles((d, name) -> 
+            name.equalsIgnoreCase("merged_data.csv"));
+        
+        if (arquivos == null || arquivos.length == 0) {
+            System.err.println("❌ Arquivo merged_data.csv não encontrado na pasta: " + pasta);
+            System.out.println("ℹ️ Tentando carregar todos os CSVs individuais...");
+            // Fallback: carregar arquivos individuais se merged não existir
+            arquivos = dir.listFiles((d, name) -> 
+                name.toLowerCase().endsWith(".csv") && !name.equalsIgnoreCase("merged_data.csv"));
+        }
+        
         if (arquivos == null || arquivos.length == 0) {
             System.err.println("❌ Nenhum arquivo CSV encontrado na pasta: " + pasta);
             return;
@@ -97,7 +117,9 @@ public class CsvLoaderService {
             }
         }
 
+        long totalFinal = repository.count();
         System.out.println("🎉 Todos os arquivos foram processados!");
+        System.out.println("📊 Total de registros no banco: " + totalFinal);
     }
 
     private LocalDate parseData(String dataStr, DateTimeFormatter... formatters) {
