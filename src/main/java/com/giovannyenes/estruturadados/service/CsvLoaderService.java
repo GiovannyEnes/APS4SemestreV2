@@ -26,25 +26,19 @@ public class CsvLoaderService {
     }
 
     public void carregarCSV(String pasta) {
-        // LIMPAR O BANCO ANTES DE CARREGAR
-        long countAntes = repository.count();
-        if (countAntes > 0) {
-            System.out.println("⚠️ Banco já contém " + countAntes + " registros. Limpando...");
-            repository.deleteAll();
-            System.out.println("✅ Banco limpo!");
-        }
-        
         File dir = new File(pasta);
-        // CARREGAR APENAS O merged_data.csv para evitar duplicação
-        File[] arquivos = dir.listFiles((d, name) -> 
-            name.equalsIgnoreCase("merged_data.csv"));
+        
+        // PRIORIZAR merged_data.csv para evitar duplicação
+        File[] arquivos = dir.listFiles((d, name) -> name.equalsIgnoreCase("merged_data.csv"));
         
         if (arquivos == null || arquivos.length == 0) {
-            System.err.println("❌ Arquivo merged_data.csv não encontrado na pasta: " + pasta);
-            System.out.println("ℹ️ Tentando carregar todos os CSVs individuais...");
-            // Fallback: carregar arquivos individuais se merged não existir
+            System.out.println("ℹ️ merged_data.csv não encontrado. Carregando arquivos individuais...");
+            // Fallback: carregar apenas arquivos individuais (excluindo merged_data.csv)
             arquivos = dir.listFiles((d, name) -> 
-                name.toLowerCase().endsWith(".csv") && !name.equalsIgnoreCase("merged_data.csv"));
+                name.toLowerCase().endsWith(".csv") && 
+                !name.equalsIgnoreCase("merged_data.csv"));
+        } else {
+            System.out.println("✅ Usando merged_data.csv (arquivo consolidado)");
         }
         
         if (arquivos == null || arquivos.length == 0) {
@@ -118,8 +112,10 @@ public class CsvLoaderService {
         }
 
         long totalFinal = repository.count();
-        System.out.println("🎉 Todos os arquivos foram processados!");
+        System.out.println("=".repeat(60));
+        System.out.println("🎉 CARGA CONCLUÍDA!");
         System.out.println("📊 Total de registros no banco: " + totalFinal);
+        System.out.println("=".repeat(60));
     }
 
     private LocalDate parseData(String dataStr, DateTimeFormatter... formatters) {
