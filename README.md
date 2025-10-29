@@ -1,61 +1,117 @@
-# APS – Sistema para Análise de Performance de Algoritmos de Ordenação de Dados
+## 🔥 Sistema de Análise de Performance de Algoritmos de Ordenação
 
-## 🎓 Contexto Acadêmico
-Este projeto foi desenvolvido como parte das **Atividades Práticas Supervisionadas (APS)** da disciplina de **Estrutura de Dados**, do curso de **Ciência da Computação – UNIP (Universidade Paulista)**, referente ao **4º semestre – 2025**.
-
-O trabalho tem como objetivo aplicar conceitos de **estruturas de dados, algoritmos de ordenação e análise de desempenho**, em um cenário prático de **geoprocessamento de dados ambientais**.
+### 📊 Projeto acadêmico em Java voltado à análise de desempenho e processamento de dados geográficos
 
 ---
 
-## 🧠 Tema
-**“Desenvolvimento de um Sistema para Análise de Performance de Algoritmos de Ordenação de Dados”**
+## 🚀 Visão Geral
+Este projeto tem como objetivo **analisar e comparar o desempenho de diferentes algoritmos de ordenação**, aplicados a **dados geográficos reais** sobre **focos de incêndio no Brasil**, disponibilizados pelo **INPE (Instituto Nacional de Pesquisas Espaciais)**.
 
-O sistema realiza a análise de dados referentes a **focos de incêndio detectados por satélite** em diferentes estados do Brasil, utilizando informações públicas disponibilizadas pelo **INPE (Instituto Nacional de Pesquisas Espaciais)**.
+O sistema foi desenvolvido como parte das **Atividades Práticas Supervisionadas (APS)** da disciplina de **Estrutura de Dados** do curso de **Ciência da Computação – UNIP (Universidade Paulista)**.
 
----
-
-## 🎯 Objetivo
-O objetivo central do projeto é **avaliar a performance de diferentes algoritmos de ordenação** aplicados a grandes volumes de dados geográficos, simulando um cenário real de análise ambiental.
-
-O sistema:
-- Lê dados de queimadas em formato CSV (extraídos do INPE).
-- Permite a ordenação dos registros por **data**, **bioma**, **município** e **precipitação**.
-- Calcula e exibe o **número de operações** (comparações e trocas) realizadas durante o processo de ordenação.
-- Fornece uma interface de visualização de dados e resultados de performance.
+A aplicação combina conceitos de **estrutura de dados, análise de complexidade e desempenho de algoritmos**, utilizando **Java e Spring Boot** para processamento e visualização dos resultados.
 
 ---
 
-## 🧩 Metodologia
-O projeto foi desenvolvido utilizando a **linguagem Java**, estruturada no padrão **MVC (Model–View–Controller)** e gerenciada por **Maven**.  
-A aplicação foi construída com **Spring Boot**, empregando as seguintes etapas:
-
-1. **Coleta de Dados:** download dos arquivos CSV do INPE.  
-2. **Leitura e Tratamento:** conversão dos dados em objetos Java.  
-3. **Implementação de Algoritmos:** comparação entre métodos como Bubble Sort, Insertion Sort, Selection Sort e Quick Sort.  
-4. **Análise de Performance:** contagem de comparações e substituições.  
-5. **Visualização:** exibição de resultados via interface web e gráficos.  
+## 🧩 Funcionalidades
+- 📂 Importação de dados em formato **CSV** (extraídos do portal do INPE).  
+- 🔄 Ordenação dos registros por **data**, **bioma**, **município** e **precipitação**.  
+- ⚙️ Implementação e comparação de múltiplos **algoritmos de ordenação** (Bubble Sort, Insertion Sort, Selection Sort e Quick Sort).  
+- 📊 Exibição do número de **comparações** e **trocas** realizadas em cada execução.  
+- 🌎 Interface web para **visualização dos dados e da eficiência dos algoritmos**.  
 
 ---
 
-## 🧰 Tecnologias Utilizadas
-- **Java 17**
-- **Spring Boot**
-- **H2 Database** (banco de dados em memória)
-- **Thymeleaf / HTML / CSS**
-- **Maven**
-- **OpenCSV** (leitura de arquivos CSV)
+## 🛠️ Tecnologias Utilizadas
+| Categoria | Tecnologia |
+|------------|-------------|
+| Linguagem | **Java 17** |
+| Framework | **Spring Boot** |
+| Banco de Dados | **H2 (em memória)** |
+| Frontend | **Thymeleaf / HTML / CSS** |
+| Gerenciador de Dependências | **Maven** |
+| Leitura de CSV | **OpenCSV** |
 
 ---
 
-## 📈 Resultados Esperados
-- Avaliação comparativa entre algoritmos de ordenação.  
-- Relatórios de desempenho com base no volume de dados.  
-- Visualização gráfica dos resultados e dos dados de queimadas.  
+## ⚡ Arquitetura do Sistema
+O projeto segue o padrão **MVC (Model–View–Controller)**, garantindo uma boa separação entre regras de negócio, controle e apresentação dos dados.
+
+```
+📁 src/
+ ┣ 📂 main/java/com/giovannyenes/estruturadados
+ ┃ ┣ 📂 controller/
+ ┃ ┣ 📂 service/
+ ┃ ┣ 📂 repository/
+ ┃ ┗ 📂 model/
+ ┣ 📂 resources/
+ ┃ ┣ 📂 templates/
+ ┃ ┗ 📂 static/
+ ┗ 📄 application.properties
+```
 
 ---
 
-## 📚 Referências
-- Instituto Nacional de Pesquisas Espaciais (INPE): https://dataserver-coids.inpe.br  
-- Cormen, T. H. et al. *Introduction to Algorithms.* MIT Press.  
-- Sedgewick, R. *Algorithms in Java.* Addison Wesley.  
-- Documentação oficial do Spring Boot: https://spring.io/projects/spring-boot
+## ▶️ Como Executar o Projeto
+
+### 1️⃣ Clonar o repositório
+```bash
+git clone https://github.com/GiovannyEnes/APS4SemestreV2.git
+```
+
+### 2️⃣ Acessar a pasta do projeto
+```bash
+cd APS4SemestreV2
+```
+
+### 3️⃣ Executar a aplicação
+```bash
+mvn spring-boot:run
+```
+
+### 4️⃣ Acessar no navegador
+```
+http://localhost:8080
+```
+
+---
+
+## 📈 Objetivos de Aprendizado
+- Compreender a **análise de complexidade e eficiência** de algoritmos de ordenação.  
+- Aplicar **estruturas de dados** na manipulação de grandes volumes de informação.  
+- Desenvolver uma aplicação **Java com Spring Boot** integrando backend e frontend.  
+- Realizar **benchmarking** entre diferentes abordagens de ordenação.  
+
+---
+
+## 🧠 Conceitos Aplicados
+- Estruturas de Dados (listas, vetores e coleções)  
+- Algoritmos de Ordenação (Bubble Sort, Insertion Sort, Selection Sort, Quick Sort)  
+- Leitura e manipulação de arquivos CSV  
+- Programação orientada a objetos  
+- Padrão MVC  
+- Persistência de dados em memória com H2  
+- Visualização de dados e análise de performance  
+
+---
+
+## 👤 Autores
+**Giovanny Enes**  
+🎓 Estudante de Ciência da Computação – UNIP  
+🌐 [LinkedIn](https://www.linkedin.com/in/giovanny-enes) • [GitHub](https://github.com/GiovannyEnes)
+
+**Lauan Amorim**  
+🎓 Estudante de Ciência da Computação – UNIP  
+🌐 [LinkedIn](https://www.linkedin.com/in/lauanamorim) • [GitHub](https://github.com/LauanAmorim)
+
+**Maria Clara**  
+🎓 Estudante de Ciência da Computação – UNIP  
+🌐 [LinkedIn](https://www.linkedin.com/in/maria-borelli) 
+
+**Miguel Teixeira**  
+🎓 Estudante de Ciência da Computação – UNIP  
+🌐 [LinkedIn](https://www.linkedin.com/in/miguelsilvateixeira) • [GitHub](https://github.com/MiguelSilvaTeixeira)
+
+---
+
+> “Algoritmos eficientes transformam dados em conhecimento.”
