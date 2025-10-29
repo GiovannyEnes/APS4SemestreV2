@@ -1,7 +1,7 @@
 # APS – Sistema para Análise de Performance de Algoritmos de Ordenação de Dados
 
 ## 🎓 Contexto Acadêmico
-Este projeto foi desenvolvido como parte das **Atividades Práticas Supervisionadas (APS)** da disciplina de **Estrutura de Dados**, do curso de **Ciência da Computação – UNIP (Universidade Paulista)**, referente ao **3º/4º semestre – 2025/2**.
+Este projeto foi desenvolvido como parte das **Atividades Práticas Supervisionadas (APS)** da disciplina de **Estrutura de Dados**, do curso de **Ciência da Computação – UNIP (Universidade Paulista)**, referente ao **4º semestre – 2025**.
 
 O trabalho tem como objetivo aplicar conceitos de **estruturas de dados, algoritmos de ordenação e análise de desempenho**, em um cenário prático de **geoprocessamento de dados ambientais**.
 
@@ -54,21 +54,8 @@ A aplicação foi construída com **Spring Boot**, empregando as seguintes etapa
 
 ---
 
-## 👨‍💻 Integrantes do Projeto
-- Giovanny Enes – RA XXXXXXX  
-*(Adicione aqui os demais integrantes do grupo, se houver)*
-
----
-
 ## 📚 Referências
 - Instituto Nacional de Pesquisas Espaciais (INPE): https://dataserver-coids.inpe.br  
 - Cormen, T. H. et al. *Introduction to Algorithms.* MIT Press.  
 - Sedgewick, R. *Algorithms in Java.* Addison Wesley.  
 - Documentação oficial do Spring Boot: https://spring.io/projects/spring-boot
-
----
-
-> **Disciplina:** Estrutura de Dados  
-> **Professor Orientador:** [Nome do Professor]  
-> **Campus:** [Nome do Campus]  
-> **Período:** 2025/2
