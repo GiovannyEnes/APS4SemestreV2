@@ -447,14 +447,14 @@
                 }
             });
         }
-        
+
         async function criarGraficoCrescimento() {
             const data = await fetch(`${API_BASE}/crescimento-percentual-por-ano`).then(r => r.json());
             const anos = Object.keys(data);
             const valores = Object.values(data);
-            
+
             const cores = valores.map(v => v >= 0 ? COLORS.danger : COLORS.success);
-            
+
             new Chart(document.getElementById('chartCrescimento'), {
                 type: 'bar',
                 data: {
@@ -473,7 +473,7 @@
                         legend: { display: false }
                     },
                     scales: {
-                        y: { 
+                        y: {
                             beginAtZero: false,
                             ticks: {
                                 callback: function(value) {
