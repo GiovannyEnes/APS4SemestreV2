@@ -16,8 +16,7 @@ A aplicação combina conceitos de **estrutura de dados, análise de complexidad
 ##  Funcionalidades
 -  Importação de dados em formato **CSV** (extraídos do portal do INPE).  
 -  Ordenação dos registros por **data**, **bioma**, **município** e **precipitação**.  
--  Implementação e comparação de múltiplos **algoritmos de ordenação** (Quick Sort, Busca Linear, regressão Linear).  
--  Exibição do número de **comparações** e **trocas** realizadas em cada execução.  
+-  Implementação e comparação de múltiplos **algoritmos de ordenação** (Quick Sort, Busca Linear, regressão Linear).    
 -  Interface web para **visualização dos dados e da eficiência dos algoritmos**.  
 
 ---
