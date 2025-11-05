@@ -85,7 +85,7 @@ http://localhost:8080
 
 ##  Conceitos Aplicados
 - Estruturas de Dados (listas, vetores e coleções)  
-- Algoritmos de Ordenação (Bubble Sort, Insertion Sort, Selection Sort, Quick Sort)  
+- Algoritmos de Ordenação (Quick Sort, busca linear, regressão linear)  
 - Leitura e manipulação de arquivos CSV  
 - Programação orientada a objetos  
 - Padrão MVC  
