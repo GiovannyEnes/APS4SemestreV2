@@ -1,10 +1,10 @@
-## 🔥 Sistema de Análise de Performance de Algoritmos de Ordenação
+##  Sistema de Análise de Performance de Algoritmos de Ordenação
 
-### 📊 Projeto acadêmico em Java voltado à análise de desempenho e processamento de dados geográficos
+###  Projeto acadêmico em Java voltado à análise de desempenho e processamento de dados geográficos
 
 ---
 
-## 🚀 Visão Geral
+##  Visão Geral
 Este projeto tem como objetivo **analisar e comparar o desempenho de diferentes algoritmos de ordenação**, aplicados a **dados geográficos reais** sobre **focos de incêndio no Brasil**, disponibilizados pelo **INPE (Instituto Nacional de Pesquisas Espaciais)**.
 
 O sistema foi desenvolvido como parte das **Atividades Práticas Supervisionadas (APS)** da disciplina de **Estrutura de Dados** do curso de **Ciência da Computação – UNIP (Universidade Paulista)**.
@@ -13,16 +13,16 @@ A aplicação combina conceitos de **estrutura de dados, análise de complexidad
 
 ---
 
-## 🧩 Funcionalidades
-- 📂 Importação de dados em formato **CSV** (extraídos do portal do INPE).  
-- 🔄 Ordenação dos registros por **data**, **bioma**, **município** e **precipitação**.  
-- ⚙️ Implementação e comparação de múltiplos **algoritmos de ordenação** (Quick Sort, Busca Linear, regressão Linear).  
-- 📊 Exibição do número de **comparações** e **trocas** realizadas em cada execução.  
-- 🌎 Interface web para **visualização dos dados e da eficiência dos algoritmos**.  
+##  Funcionalidades
+-  Importação de dados em formato **CSV** (extraídos do portal do INPE).  
+-  Ordenação dos registros por **data**, **bioma**, **município** e **precipitação**.  
+-  Implementação e comparação de múltiplos **algoritmos de ordenação** (Quick Sort, Busca Linear, regressão Linear).  
+-  Exibição do número de **comparações** e **trocas** realizadas em cada execução.  
+-  Interface web para **visualização dos dados e da eficiência dos algoritmos**.  
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 | Categoria | Tecnologia |
 |------------|-------------|
 | Linguagem | **Java 17** |
@@ -34,7 +34,7 @@ A aplicação combina conceitos de **estrutura de dados, análise de complexidad
 
 ---
 
-## ⚡ Arquitetura do Sistema
+##  Arquitetura do Sistema
 O projeto segue o padrão **MVC (Model–View–Controller)**, garantindo uma boa separação entre regras de negócio, controle e apresentação dos dados.
 
 ```
@@ -76,7 +76,7 @@ http://localhost:8080
 
 ---
 
-## 📈 Objetivos de Aprendizado
+##  Objetivos de Aprendizado
 - Compreender a **análise de complexidade e eficiência** de algoritmos de ordenação.  
 - Aplicar **estruturas de dados** na manipulação de grandes volumes de informação.  
 - Desenvolver uma aplicação **Java com Spring Boot** integrando backend e frontend.  
@@ -84,7 +84,7 @@ http://localhost:8080
 
 ---
 
-## 🧠 Conceitos Aplicados
+##  Conceitos Aplicados
 - Estruturas de Dados (listas, vetores e coleções)  
 - Algoritmos de Ordenação (Bubble Sort, Insertion Sort, Selection Sort, Quick Sort)  
 - Leitura e manipulação de arquivos CSV  
